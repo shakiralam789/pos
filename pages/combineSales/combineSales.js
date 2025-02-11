@@ -1,5 +1,5 @@
 import React from "react";
-import Preview from "./partials/preview";
+import Preview from "./partials/preview/preview";
 
 export default function CombineSales() {
   return (
