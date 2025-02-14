@@ -6,7 +6,7 @@ export default function PreviewInput({ className = "", ...rest }) {
     <input
       {...rest}
       className={cn(
-        "text-center outline-none focus:border-transparent focus:bg-gray-300 px-2 border border-transparent hover:border-gray-400 rounded-md",
+        "text-center outline-none focus:border-transparent focus:bg-gray-300 px-2 border border-transparent hover:border-gray-400 rounded",
         className
       )}
     />

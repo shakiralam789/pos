@@ -7,6 +7,7 @@
     margin: 0 auto;
     padding: 0 15px;
 }
+
 @layer components {
 
     .font-11 {
@@ -56,4 +57,40 @@
     .font-42 {
         @apply text-[30px] sm:text-[36px] md:text-[42px];
     }
+}
+
+.react-select-container input,
+.react-select-container input:focus,
+.react-select-container input:focus-visible {
+    box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+}
+
+.preview-select .react-select-container {
+    @apply !border-transparent !min-h-[22px] h-[22px] !leading-[22px] hover:!border-gray-400;
+}
+.preview-select .react-select-container input{
+    @apply !h-[11px];
+}
+.preview-select .react-select-container>div {
+    @apply !p-0 !px-1;
+    display: inline;
+}
+
+.preview-select .react-select-container .dropdown-icon-container {
+    @apply !p-0.5;
+}
+.preview-select .react-select-container .dropdown-icon-container:not(.open){
+    opacity: 0;
+}
+
+.preview-select:hover .react-select-container .dropdown-icon-container {
+    opacity: 1;
+}
+.list {
+    font-size: 11px !important;
+}
+.list.active,.list:hover{
+    @apply !bg-gray-200 !text-gray-800;
 }

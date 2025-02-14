@@ -36,7 +36,7 @@ export default async function RootLayout({ children }) {
         <div className="min-h-screen flex flex-col justify-between">
           <ToastContainer style={{ marginTop: "100px" }} autoClose={3000} />
           {/* <Header /> */}
-          <main className="w-full flex-1 flex flex-wrap">
+          <main className="w-full flex-1 flex flex-wrap px-4">
             <div className="w-full">{children}</div>
           </main>
           {/* <Footer /> */}
