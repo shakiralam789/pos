@@ -14,8 +14,9 @@ const tailwindConfig = {
         secondary: "#f9f9f9",
         danger: "#dc2f06",
         info: "#0189a3",
-        warning: "#fd8a00",
-        success:"#008659"
+        warning: "#f36700",
+        success:"#008659",
+        "body-color":"#f3f4f6"
       },
     },
   },

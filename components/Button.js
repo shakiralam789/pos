@@ -12,7 +12,7 @@ export default function Button({
   return (
     <Component
       className={cn(
-        "font-medium hover:brightness-90 flex-1 min-w-fit whitespace-nowrap font-13 bg-green-600 px-3 py-1.5 rounded text-white",
+        "font-medium hover:brightness-90 flex-1 min-w-fit whitespace-nowrap font-13 bg-success px-3 py-1.5 rounded text-white",
         className
       )}
       {...(href ? { href } : {})}

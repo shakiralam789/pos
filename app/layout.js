@@ -25,7 +25,7 @@ export const viewport = {
 export default async function RootLayout({ children }) {
   return (
     <html>
-      <body className={poppins.className}>
+      <body className={poppins.className+' bg-body-color'}>
         <NextTopLoader
           color="#fff0c4"
           height={4}

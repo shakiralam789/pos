@@ -134,6 +134,13 @@ export default function PreviewBefore({
                 { label: "table 1", value: "table_1" },
                 { label: "table 2", value: "table_2" },
                 { label: "table 3", value: "table_3" },
+                { label: "table 4", value: "table_4" },
+                { label: "table 5", value: "table_5" },
+                { label: "table 6", value: "table_6" },
+                { label: "table 7", value: "table_7" },
+                { label: "table 8", value: "table_8" },
+                { label: "table 9", value: "table_9" },
+                { label: "table 10", value: "table_10" },
               ]}
             />
           </div>

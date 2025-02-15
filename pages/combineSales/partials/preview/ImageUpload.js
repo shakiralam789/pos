@@ -1,5 +1,6 @@
 "use client";
 
+import UploadIcon from "@/components/icons/UploadIcon";
 import Image from "next/image";
 import React from "react";
 import { Controller } from "react-hook-form";
@@ -38,8 +39,8 @@ export default function ImageUpload({
             className="w-full h-full object-cover"
           />
         ) : (
-          <div className="cursor-pointer w-full aspect-square font-11 flex items-center justify-center bg-gray-200 border border-gray-400">
-            Upload logo
+          <div className="cursor-pointer w-full aspect-square font-11 flex items-center justify-center bg-gray-200 ">
+          <UploadIcon className="text-gray-500"/>
           </div>
         )}
       </label>

@@ -3,28 +3,22 @@
 import React, { useState } from "react";
 import Preview from "./partials/preview/Preview";
 import Button from "@/components/Button";
+import MenuControl from "./partials/MenuControl";
 
-export default function CombineSales() {
+export default function CombineSales({className=""}) {
   const [data, setData] = useState({
     company_name: "Luxury Dine",
     company_address: "Jashore Club (Tennis Court)",
     hotline: "01748696963",
     kot: "EGG-6",
-    table: "Table 1",
+    table: "",
     sale_type: "general",
     waiter: "Waiter 1",
     time: "10:00 AM",
     guest: "Guest 1",
     image1: "",
     image2: "",
-    products: [
-      {
-        code: "Pro-116",
-        name: "Coconut Prawn",
-        qty: 1,
-        price: 699,
-      },
-    ],
+    products: [],
   });
 
   function handleOnChange({ fieldName, subFieldName, value, index }) {
@@ -67,21 +61,18 @@ export default function CombineSales() {
   };
 
   return (
-    <div className="h-full">
+    <div className={`${className} h-full`}>
       <div className="flex flex-wrap gap-4">
-        <form
-          onSubmit={submitForm}
-          className="pt-6 h-screen overflow-y-scroll"
-        >
-          <div className="px-4">
-          <Preview
-            data={data}
-            setData={setData}
-            handleOnChange={handleOnChange}
-            className="w-[500px]"
-          />
+        <form onSubmit={submitForm} className="w-full md:w-1/2 xl:w-[500px] 2xl:w-[600px] pt-6 md:h-screen md:overflow-y-scroll">
+          <div className="md:px-4 border-r">
+            <Preview
+              data={data}
+              setData={setData}
+              handleOnChange={handleOnChange}
+              className="bg-white"
+            />
           </div>
-          <div className="px-4 flex flex-wrap gap-2 py-4 sticky bottom-0.5 bg-white">
+          <div className="px-4 flex flex-wrap gap-2 py-4 sticky bottom-0.5 bg-gray-100">
             <Button className="bg-warning">Print order</Button>
             <Button>Conform order</Button>
             <Button className="bg-info">Payment</Button>
@@ -89,8 +80,8 @@ export default function CombineSales() {
           </div>
         </form>
 
-        <div className="py-6 flex-1 h-screen overflow-y-scroll">
-
+        <div className="w-full md:w-1/2 xl:w-auto flex-1 md:h-screen md:overflow-y-scroll">
+          <MenuControl data={data} setData={setData} />
         </div>
       </div>
     </div>

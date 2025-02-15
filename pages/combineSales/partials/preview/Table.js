@@ -28,7 +28,7 @@ export default function Table({ handleOnChange, data,setData }) {
         <tbody>
           {data.products && data.products.length > 0 ? (
             data.products.map((item, index) => (
-              <tr className="*:py-2 *:border-b *:border-b-gray-400" key={index}>
+              <tr className="*:py-0.5 *:border-b *:border-b-gray-400" key={index}>
                 <td>
                   <div className="flex items-center gap-1">
                     <button onClick={(e)=> removeProductTableRow(e, index)} className="size-7 flex items-center justify-center">
