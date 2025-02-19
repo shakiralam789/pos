@@ -18,7 +18,7 @@ export default function TableList({ data, setData }) {
     if (data.table === value) {
       return;
     }
-    setData((prev) => ({ ...prev, table: value }));
+    setData("table", value);
   };
 
   return (

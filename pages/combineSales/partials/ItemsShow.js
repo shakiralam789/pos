@@ -37,32 +37,30 @@ export default function ItemsShow({ setData, data }) {
   ]);
 
   function updateItemQuantity(item, newQty) {
-    setData((prev) => {
-      if (newQty === 0) {
-        return {
-          ...prev,
-          products: prev.products.filter((el) => el.id !== item.id),
-        };
-      }
 
-      const existingProductIndex = prev.products.findIndex(
+      let prevData = { ...data };
+      let products = prevData.products;
+
+      const existingProductIndex = products.findIndex(
         (el) => el.id === item.id
       );
 
       if (existingProductIndex !== -1) {
-        const updatedProducts = prev.products.map((product, index) =>
-          index === existingProductIndex ? { ...product, qty: newQty } : product
+        products = products.map((product) =>
+          product.id === item.id ? { ...product, qty: newQty } : product
         );
-
-        return { ...prev, products: updatedProducts };
+      } else {
+        products = [...products, { ...item, qty: newQty }];
+      }
+      
+      if (newQty === 0) {
+        products = products.filter((el) => el.id !== item.id);
       }
 
-      return {
-        ...prev,
-        products: [...prev.products, { ...item, qty: newQty }],
-      };
-    });
+      setData("products", products);
   }
+  
+  
 
   return (
     <div>
@@ -82,8 +80,8 @@ export default function ItemsShow({ setData, data }) {
               <div
                 key={index}
                 className={`${
-                  data.products.find((el) => el.id === item.id) ? "active" : ""
-                } group overflow-hidden bg-white rounded-md shadow cursor-pointer`}
+                  data?.products?.find((el) => el.id === item.id) ? "active" : ""
+                } group overflow-hidden bg-white rounded-md shadow`}
               >
                 <div className="w-full aspect-[100/60] overflow-hidden bg-gray-200">
                   {item.image && (
@@ -100,10 +98,10 @@ export default function ItemsShow({ setData, data }) {
                   <div className="font-13 font-medium">{item.name}</div>
                   <div className="flex gap-2 justify-between flex-wrap">
                     <div className="font-14 font-medium text-warning">
-                      ${item.price}{" "}
-                      {data.products.find((el) => el.id === item.id) && (
+                    ৳ {item?.price}{" "}
+                      {data?.products?.find((el) => el.id === item.id) && (
                         <span className="font-12 text-gray-400">
-                          / {data.products.find((el) => el.id === item.id)?.qty}{" "}
+                          / {data?.products?.find((el) => el.id === item.id)?.qty}{" "}
                           pcs
                         </span>
                       )}
@@ -112,7 +110,7 @@ export default function ItemsShow({ setData, data }) {
                       <PlusMinus
                         showValue={false}
                         initialValue={
-                          data.products.find((el) => el.id === item.id)?.qty ||
+                          data?.products?.find((el) => el.id === item.id)?.qty ||
                           0
                         }
                         onChange={(newQty) => updateItemQuantity(item, newQty)}

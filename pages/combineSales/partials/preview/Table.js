@@ -3,21 +3,26 @@ import PreviewInput from "./PreviewInput";
 import { toNumber } from "@/utilities/helper";
 import CircleMinus from "@/components/icons/CircleMinus";
 
-export default function Table({ handleOnChange, data,setData }) {
-
+export default function Table({ handleOnChange, data, setData }) {
   function removeProductTableRow(e, index) {
     e.preventDefault();
     let list = { ...data };
     let products = list.products.filter((el, i) => i != index);
-    setData({ ...list, products: products });
-}
+    setData("products", products);
+  }
 
   return (
     <div className="overflow-x-auto">
       <table className="w-full font-12 text-left">
         <thead>
           <tr className="*:py-1 *:border-b *:border-b-gray-400">
-            <th className={`${data.products && data.products.length > 0 ? "pl-8":""}`}>SL</th>
+            <th
+              className={`${
+                data.products && data.products.length > 0 ? "pl-8" : ""
+              }`}
+            >
+              SL
+            </th>
             <th>Code</th>
             <th>Name</th>
             <th className="text-left">Qty</th>
@@ -28,10 +33,16 @@ export default function Table({ handleOnChange, data,setData }) {
         <tbody>
           {data.products && data.products.length > 0 ? (
             data.products.map((item, index) => (
-              <tr className="*:py-0.5 *:border-b *:border-b-gray-400" key={index}>
+              <tr
+                className="*:py-0.5 *:border-b *:border-b-gray-400"
+                key={index}
+              >
                 <td>
                   <div className="flex items-center gap-1">
-                    <button onClick={(e)=> removeProductTableRow(e, index)} className="size-7 flex items-center justify-center">
+                    <button
+                      onClick={(e) => removeProductTableRow(e, index)}
+                      className="size-7 flex items-center justify-center"
+                    >
                       <CircleMinus />
                     </button>
                     <span>{index + 1}</span>

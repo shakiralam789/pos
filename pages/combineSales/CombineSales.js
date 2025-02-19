@@ -4,9 +4,20 @@ import React, { useState } from "react";
 import Preview from "./partials/preview/Preview";
 import Button from "@/components/Button";
 import MenuControl from "./partials/MenuControl";
+import { useForm } from "@/hook/_customUseForm";
 
-export default function CombineSales({className=""}) {
-  const [data, setData] = useState({
+export default function CombineSales({ className = "" }) {
+  const {
+    control,
+    register,
+    data,
+    errors,
+    setData,
+    handleSubmit,
+    post,
+    watch
+  } = useForm({
+    name: "shakir",
     company_name: "Luxury Dine",
     company_address: "Jashore Club (Tennis Court)",
     hotline: "01748696963",
@@ -24,23 +35,21 @@ export default function CombineSales({className=""}) {
   function handleOnChange({ fieldName, subFieldName, value, index }) {
     if (subFieldName && index !== undefined) {
       const updatedData = [...data[fieldName]];
-      updatedData[index][subFieldName] = value;
-      setData({
-        ...data,
-        [fieldName]: updatedData,
-      });
+      updatedData[index] = {
+        ...updatedData[index],
+        [subFieldName]: value,
+      };
+
+      setData(fieldName, updatedData);
       return;
     }
 
-    setData({
-      ...data,
-      [fieldName]: value,
-    });
+    setData(fieldName, value);
   }
 
-  const submitForm = (e) => {
-    e.preventDefault();
-
+  const submitForm = (data) => {
+    console.log(data);
+    
     const formData = new FormData();
 
     Object.keys(data).forEach((key) => {
@@ -57,18 +66,27 @@ export default function CombineSales({className=""}) {
       formData.append("image2", data.image2[0]);
     }
 
-    // fetch...
+    post("/your-endpoint", {
+      body: formData,
+    });
   };
 
   return (
     <div className={`${className} h-full`}>
       <div className="flex flex-wrap gap-4">
-        <form onSubmit={submitForm} className="w-full md:w-1/2 xl:w-[500px] 2xl:w-[600px] pt-6 md:h-screen md:overflow-y-scroll">
+        <form
+          onSubmit={handleSubmit(submitForm)}
+          className="w-full md:w-1/2 xl:w-[500px] 2xl:w-[600px] pt-6 md:h-screen md:overflow-y-scroll"
+        >
           <div className="md:px-4 border-r">
             <Preview
               data={data}
               setData={setData}
               handleOnChange={handleOnChange}
+              control={control}
+              register={register}
+              watch={watch}
+              errors={errors}
               className="bg-white"
             />
           </div>

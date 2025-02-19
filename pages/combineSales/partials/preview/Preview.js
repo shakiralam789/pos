@@ -10,6 +10,11 @@ export default function Preview({
   handleOnChange,
   data,
   setData,
+  Controller,
+  control,
+  register,
+  errors,
+  watch,
 }) {
   const [preview1, setPreview1] = useState(null);
   const [preview2, setPreview2] = useState(null);
@@ -25,6 +30,10 @@ export default function Preview({
         preview2={preview2}
         handleOnChange={handleOnChange}
         data={data}
+        control={control}
+        register={register}
+        errors={errors}
+        watch={watch}
       />
       <Table handleOnChange={handleOnChange} data={data} setData={setData} />
       <TotalCalculation className="mt-4" />

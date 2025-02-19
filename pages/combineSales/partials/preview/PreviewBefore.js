@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import ImageUpload from "./ImageUpload";
 import PreviewInput from "./PreviewInput";
 import CustomSelect from "@/components/CustomSelect";
+import ErrorMsg from "@/components/ErrorMsg";
+import { Controller } from "react-hook-form";
 
 export default function PreviewBefore({
   setPreview1,
@@ -11,75 +13,58 @@ export default function PreviewBefore({
   preview2,
   handleOnChange,
   data,
+  control,
+  register,
+  errors,
+  watch,
 }) {
-  const [isInputVisible, setIsInputVisible] = useState(false);
-  const wrapperRef = useRef(null);
-
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-        setIsInputVisible(false);
-      }
-    }
-
-    if (isInputVisible) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isInputVisible]);
-
   return (
     <>
       <div className="text-center">
         <div className="mb-2 relative">
           <PreviewInput
-            onChange={(e) =>
-              handleOnChange({
-                filedName: "company_name",
-                value: e.target.value,
-              })
-            }
+            {...register("company_name", {
+              required: "Company name is required",
+            })}
+            name="company_name"
+            val={watch("company_name")}
             placeholder="Enter company name"
             className="font-20 font-semibold"
-            value={data?.company_name || ""}
-          />
+            plainTagClass="h-8"
+            errorsMessage={errors?.company_name?.message}
+          >
+            {watch("company_name") || ""}
+          </PreviewInput>
         </div>
-        <div>
+        <div className="relative">
           <PreviewInput
-            onChange={(e) =>
-              handleOnChange({
-                filedName: "company_address",
-                value: e.target.value,
-              })
-            }
+            {...register("company_address", {
+              required: "Company name is required",
+            })}
+            name="company_address"
+            val={watch("company_address")}
             placeholder="Enter company address"
-            className="font-13"
-            value={data?.company_address || ""}
-          />
+            className="font-14 "
+            plainTagClass="h-[23px]"
+            errorsMessage={errors?.company_address?.message}
+          >
+            {watch("company_address") || ""}
+          </PreviewInput>
         </div>
-        <div ref={wrapperRef}>
-          {isInputVisible && (
-            <PreviewInput
-              onChange={(e) =>
-                handleOnChange({ filedName: "hotline", value: e.target.value })
-              }
-              autoFocus
-              placeholder="Enter hotline"
-              className="font-13 font-medium"
-              value={data?.hotline || ""}
-            />
-          )}
-          {!isInputVisible && (
-            <p
-              onClick={() => setIsInputVisible(true)}
-              className="h-[24px] border border-transparent min-w-[256px] w-fit mx-auto rounded hover:border-gray-400 font-13 font-medium"
-            >
-              Hotline: {data?.hotline}
-            </p>
-          )}
+        <div className="relative">
+          <PreviewInput
+            {...register("hotline", {
+              required: "Hotline is required",
+            })}
+            name="hotline"
+            val={watch("hotline")}
+            placeholder="Enter hotline"
+            className="font-13 font-semibold"
+            plainTagClass="h-[22px]"
+            errorsMessage={errors?.hotline?.message}
+          >
+            Hotline: {watch("hotline") || ""}
+          </PreviewInput>
         </div>
         <div>Bill Receipt</div>
         <div className="flex flex-wrap">
@@ -112,13 +97,19 @@ export default function PreviewBefore({
           <div className="flex items-center gap-1">
             <span className="font-semibold">KOT:</span>
             <PreviewInput
-              onChange={(e) =>
-                handleOnChange({ filedName: "kot", value: e.target.value })
-              }
-              value={data?.kot || ""}
-              placeholder="Enter KOT"
-              className="w-full font-13 font-normal text-left"
-            />
+              {...register("kot", {
+                required: "kot is required",
+              })}
+              name="kot"
+              val={watch("kot")}
+              placeholder="Enter kot"
+              className="font-14"
+              plainTagClass="h-[22px]"
+              errorsMessage={errors?.kot?.message}
+              inputClassName={'text-left'}
+            >
+              {watch("kot") || ""}
+            </PreviewInput>
           </div>
           <div className="flex items-center gap-1">
             <span className="font-semibold whitespace-nowrap">Table: </span>
