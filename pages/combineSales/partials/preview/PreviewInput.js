@@ -8,7 +8,7 @@ export default function PreviewInput({
   plainTagClass = "",
   children,
   val = "",
-  errorsMessage="",
+  errorsMessage = "",
   ...rest
 }) {
   const [isInputVisible, setIsInputVisible] = useState(false);
@@ -31,7 +31,7 @@ export default function PreviewInput({
   }, [isInputVisible]);
 
   return (
-    <div ref={wrapperRef} className={cn("relative", className)}>
+    <div ref={wrapperRef} className={cn("relative w-full", className)}>
       <input
         {...rest}
         className={cn(
@@ -47,13 +47,15 @@ export default function PreviewInput({
           onClick={() => setIsInputVisible(true)}
           className={cn(
             `${
-              val.trim() == "" ? "border-gray-400" : "border-transparent"
-            } px-2 flex-1 relative border w-fit mx-auto rounded hover:border-gray-400`,
+              val?.toString().trim() == ""
+                ? "border-gray-400"
+                : "border-transparent"
+            } px-2 py-px relative border mx-auto rounded hover:border-gray-400`,
             plainTagClass
           )}
         >
           {children}
-          {val.trim() == "" && (
+          {val?.toString().trim() == "" && (
             <span className="text-gray-400 pointer-events-none">
               {rest?.placeholder || "Enter text"}
             </span>

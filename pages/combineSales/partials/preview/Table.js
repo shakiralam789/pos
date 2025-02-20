@@ -3,7 +3,15 @@ import PreviewInput from "./PreviewInput";
 import { toNumber } from "@/utilities/helper";
 import CircleMinus from "@/components/icons/CircleMinus";
 
-export default function Table({ handleOnChange, data, setData }) {
+export default function Table({
+  handleOnChange,
+  data,
+  setData,
+  watch,
+  errors,
+  control,
+  register,
+}) {
   function removeProductTableRow(e, index) {
     e.preventDefault();
     let list = { ...data };
@@ -52,7 +60,12 @@ export default function Table({ handleOnChange, data, setData }) {
                 <td>{item.name}</td>
                 <td className="text-left">
                   <PreviewInput
+                    placeholder=""
+                    val={data.products[index].qty}
                     value={data.products[index].qty}
+                    plainTagClass="min-w-[30px] px-1 text-center font-14"
+                    inputClassName="w-8 px-1 text-center font-14"
+                    className="w-fit"
                     onChange={(e) =>
                       handleOnChange({
                         fieldName: "products",
@@ -61,8 +74,9 @@ export default function Table({ handleOnChange, data, setData }) {
                         index,
                       })
                     }
-                    className="w-8 px-1 text-center"
-                  />
+                  >
+                    {data.products[index].qty}
+                  </PreviewInput>
                 </td>
                 <td className="text-right">{item.price}</td>
                 <td className="text-right">

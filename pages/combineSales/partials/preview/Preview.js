@@ -35,9 +35,26 @@ export default function Preview({
         errors={errors}
         watch={watch}
       />
-      <Table handleOnChange={handleOnChange} data={data} setData={setData} />
+      <Table
+        handleOnChange={handleOnChange}
+        data={data}
+        setData={setData}
+        control={control}
+        register={register}
+        errors={errors}
+        watch={watch}
+      />
       <TotalCalculation className="mt-4" />
-      <PreviewFooter className="mt-4" />
+      <PreviewFooter
+        handleOnChange={handleOnChange}
+        data={data}
+        setData={setData}
+        control={control}
+        register={register}
+        errors={errors}
+        watch={watch}
+        className="mt-4"
+      />
     </div>
   );
 }

@@ -1,6 +1,16 @@
 import React from "react";
+import PreviewInput from "./PreviewInput";
 
-export default function PreviewFooter({className=""}) {
+export default function PreviewFooter({
+  className = "",
+  handleOnChange,
+  data,
+  setData,
+  control,
+  register,
+  errors,
+  watch,
+}) {
   return (
     <div className={className}>
       <p className="border-b border-b-gray-400 text-center font-13 mb-2 pb-1">
@@ -20,9 +30,21 @@ export default function PreviewFooter({className=""}) {
           </div>
         </div>
       </div>
-      <p className="border-b border-b-gray-400 text-center font-13 mt-2 mb-2 pb-1">
-        Thank You Come Again
-      </p>
+      <div className="border-b border-b-gray-400 text-center font-13 mt-2 mb-2 pb-1">
+        <PreviewInput
+          {...register("gratitude", {
+            required: "Gratitude is required",
+          })}
+          val={watch("gratitude")}
+          placeholder="Enter gratitude"
+          className="font-14"
+          errorsMessage={errors?.gratitude?.message}
+          plainTagClass="font-12"
+          inputClassName={"font-12"}
+        >
+          {watch("gratitude") || ""}
+        </PreviewInput>
+      </div>
       <p className="text-center font-11 mt-2">
         Software developed by- <span className="font-semibold">Zion IT</span>
       </p>

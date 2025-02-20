@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Preview from "./partials/preview/Preview";
 import Button from "@/components/Button";
 import MenuControl from "./partials/MenuControl";
-import { useForm } from "@/hook/_customUseForm";
+import { useForm, useFieldArray } from "@/hook/_customUseForm";
 
 export default function CombineSales({ className = "" }) {
   const {
@@ -15,7 +15,7 @@ export default function CombineSales({ className = "" }) {
     setData,
     handleSubmit,
     post,
-    watch
+    watch,
   } = useForm({
     name: "shakir",
     company_name: "Luxury Dine",
@@ -29,6 +29,7 @@ export default function CombineSales({ className = "" }) {
     guest: "Guest 1",
     image1: "",
     image2: "",
+    gratitude: "Thank you for ordering",
     products: [],
   });
 
@@ -49,7 +50,7 @@ export default function CombineSales({ className = "" }) {
 
   const submitForm = (data) => {
     console.log(data);
-    
+
     const formData = new FormData();
 
     Object.keys(data).forEach((key) => {

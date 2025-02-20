@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { useForm as useHookForm, Controller } from "react-hook-form";
+import {
+  useForm as useHookForm,
+  Controller,
+  useFieldArray,
+} from "react-hook-form";
 
 export function useForm(defaultValues) {
   const {
@@ -83,6 +87,7 @@ export function useForm(defaultValues) {
   const get = (url, options) => request("GET", url, options);
 
   return {
+    useFieldArray,
     Controller,
     control,
     data,

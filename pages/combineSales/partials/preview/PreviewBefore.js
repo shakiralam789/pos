@@ -30,13 +30,12 @@ export default function PreviewBefore({
             val={watch("company_name")}
             placeholder="Enter company name"
             className="font-20 font-semibold"
-            plainTagClass="h-8"
             errorsMessage={errors?.company_name?.message}
           >
             {watch("company_name") || ""}
           </PreviewInput>
         </div>
-        <div className="relative">
+        <div className="relative mb-1">
           <PreviewInput
             {...register("company_address", {
               required: "Company name is required",
@@ -45,13 +44,12 @@ export default function PreviewBefore({
             val={watch("company_address")}
             placeholder="Enter company address"
             className="font-14 "
-            plainTagClass="h-[23px]"
             errorsMessage={errors?.company_address?.message}
           >
             {watch("company_address") || ""}
           </PreviewInput>
         </div>
-        <div className="relative">
+        <div className="relative mb-1">
           <PreviewInput
             {...register("hotline", {
               required: "Hotline is required",
@@ -60,7 +58,6 @@ export default function PreviewBefore({
             val={watch("hotline")}
             placeholder="Enter hotline"
             className="font-13 font-semibold"
-            plainTagClass="h-[22px]"
             errorsMessage={errors?.hotline?.message}
           >
             Hotline: {watch("hotline") || ""}
@@ -103,8 +100,6 @@ export default function PreviewBefore({
               name="kot"
               val={watch("kot")}
               placeholder="Enter kot"
-              className="font-14"
-              plainTagClass="h-[22px]"
               errorsMessage={errors?.kot?.message}
               inputClassName={'text-left'}
             >
