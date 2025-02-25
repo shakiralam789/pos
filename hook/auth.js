@@ -1,175 +1,80 @@
 import useSWR from "swr";
-import { useCallback, useContext, useEffect } from "react";
-import { useParams } from "next/navigation";
+import { useEffect } from "react";
 import { useRouter } from "nextjs-toploader/app";
-import apiRequest from "@/lib/apiRequest";
 import { getCookieByName } from "@/components/helper/helper";
+import { useForm } from "./_customUseForm";
+
 let userLoading = true;
 
 export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
   const router = useRouter();
-  const params = useParams();
+  const { get, processing, apiErrors } = useForm();
 
   const {
     data: user,
     error,
     mutate,
-  } = useSWR(
-    "/api/v1/profile",
-    () =>
-      apiRequest({ url: "/api/v1/profile" })
-        .then((data) => {
-          userLoading = false;
-          let isProfileCompleted = data.data.is_profile_completed || false;
-          if (!isProfileCompleted && window.location.pathname !== "/profile") {
-            router.push("/profile");
-          }
-          return data.data;
-        })
-        .catch((error) => {
-          userLoading = false;
-          if (error.status !== 409) throw error;
+  } = useSWR("/api/v1/profile", () => get("/api/v1/profile"));
 
-          router.push("/verify-email");
-        }),
-    {
-      revalidateOnFocus: false,
-      revalidateOnMount: true,
-      revalidateOnReconnect: false,
-      refreshWhenOffline: false,
-      refreshWhenHidden: false,
-      refreshInterval: 0,
-    }
-  );
-  const csrf = () => apiRequest({ url: "/sanctum/csrf-cookie", method: "GET" });
+  const csrf = get("/sanctum/csrf-cookie");
 
-  const register = async ({ setErrors, setLoading, ...props }) => {
+  const register = async ({ post, data }) => {
     await csrf();
-
-    setErrors([]);
-    setLoading(true);
-
-    apiRequest({ url: "/api/v1/register", method: "POST", data: props })
-      .then((data) => {
-        mutate();
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-        if (error?.response?.status === 422) {
-          setErrors(error?.response?.data?.errors || {});
-        }
-      });
+    return await post("/api/v1/register", data);
   };
 
-  const login = async ({ setErrors, setStatus, setLoading, ...props }) => {
+  const login = async ({ post, data }) => {
     await csrf();
-
-    setErrors([]);
-    setStatus(null);
-    setLoading(true);
-
-    apiRequest({
-      url: "/api/v1/login",
-      method: "POST",
-      data: props,
-      credentials: "include",
-    })
-      .then(() => {
-        mutate();
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-        if (error?.response?.status === 422) {
-          setErrors(error?.response?.data?.errors || {});
-        }
-      });
+    return await post("/api/v1/login", data);
   };
 
-  const OTPLogin = async ({ ...props }) => {
+  const OTPLogin = async ({ post, data }) => {
     await csrf();
-    return await apiRequest({
-      url: "/api/v1/login-otp-send",
-      method: "POST",
-      data: props,
-    });
+    return await post("/api/v1/login-otp-send", data);
   };
 
-  const verifyOTP = async ({ ...props }) => {
+  const verifyOTP = async ({ post, data }) => {
     await csrf();
-    return await apiRequest({
-      url: "/api/v1/login-otp-verify",
-      method: "POST",
-      data: props,
-    });
+    return await post("/api/v1/login-otp-verify", data);
   };
 
-  const verifyForgottenOTP = async ({ ...props }) => {
+  const verifyForgottenOTP = async ({ post, data }) => {
     await csrf();
-    return await apiRequest({
-      url: "/api/v1/verify-otp",
-      method: "POST",
-      data: props,
-    });
+    return await post("/api/v1/verify-otp", data);
   };
 
-  const forgotPassword = async ({ email }) => {
+  const forgotPassword = async ({ post, data }) => {
     await csrf();
-
-    return await apiRequest({
-      url: "/api/v1/forget-password",
-      method: "POST",
-      data: { email },
-    });
+    return await post("/api/v1/forget-password", data);
   };
 
-  const resetPassword = async (data) => {
+  const resetPassword = async ({ post, data }) => {
     await csrf();
-    return await apiRequest({
-      url: "/api/v1/reset-password",
-      method: "POST",
-      data: data,
-    });
+    return await post("/api/v1/reset-password", data);
   };
 
-  const resendEmailVerification = ({ setStatus }) => {
-    apiRequest({
-      url: "/email/verification-notification",
-      method: "POST",
-    }).then((data) => setStatus(data.status));
+  const resendEmailVerification = async ({ post, data }) => {
+    return await post("/email/verification-notification", data);
   };
 
-  const logout = useCallback(async () => {
-    if (!error) {
-      try {
-        await apiRequest({
-          url: "/api/v1/logout",
-          method: "POST",
-          credentials: "include",
-        });
-
-        // mutate(null);
-
-        // router.push("/login");
-        window.location.href = "/login";
-      } catch (err) {}
-    }
-  }, [error, router]);
+  const logout = async ({ post, data }) => {
+    await csrf();
+    return await post("/api/v1/logout", data);
+  };
 
   useEffect(() => {
-    if (middleware === "guest" && redirectIfAuthenticated && user) {
-      let routePath = getCookieByName("lastRoute");
-      if (routePath) {
-        router.push(routePath);
-      } else {
-        router.push("/");
-      }
-    }
-    if (window.location.pathname === "/verify-email" && user?.email_verified_at)
-      router.push(redirectIfAuthenticated);
-    if (middleware === "auth" && error) logout();
-  }, [user, error,router]);
+    // if (middleware === "guest" && redirectIfAuthenticated && user) {
+    //   let routePath = getCookieByName("lastRoute");
+    //   if (routePath) {
+    //     router.push(routePath);
+    //   } else {
+    //     router.push("/");
+    //   }
+    // }
+    // if (window.location.pathname === "/verify-email" && user?.email_verified_at)
+    //   router.push(redirectIfAuthenticated);
+    // if (middleware === "auth" && error) logout();
+  }, [user, error, router]);
 
   return {
     userLoading,

@@ -50,7 +50,7 @@ export default function PreviewInput({
               val?.toString().trim() == ""
                 ? "border-gray-400"
                 : "border-transparent"
-            } px-2 py-px relative border mx-auto rounded hover:border-gray-400`,
+            } cursor-pointer px-2 py-px relative border mx-auto rounded hover:border-gray-400`,
             plainTagClass
           )}
         >

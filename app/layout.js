@@ -1,4 +1,5 @@
 import { Poppins } from "next/font/google";
+import StoreProvider from "@/src/store/Provider";
 
 import "./globals.css";
 import { ToastContainer } from "react-toastify";
@@ -22,25 +23,27 @@ export const viewport = {
   minimumScale: 1,
 };
 
-export default async function RootLayout({ children }) {
+export default function RootLayout({ children }) {
   return (
-    <html>
-      <body className={poppins.className+' bg-body-color'}>
-        <NextTopLoader
-          color="#fff0c4"
-          height={4}
-          speed={500}
-          showSpinner={false}
-        />
+    <html lang="en">
+      <body className={poppins.className + " bg-body-color"}>
+        <StoreProvider>
+          <NextTopLoader
+            color="#fff0c4"
+            height={4}
+            speed={500}
+            showSpinner={false}
+          />
 
-        <div className="min-h-screen flex flex-col justify-between">
-          <ToastContainer style={{ marginTop: "100px" }} autoClose={3000} />
-          {/* <Header /> */}
-          <main className="w-full flex-1 flex flex-wrap px-4">
-            <div className="w-full">{children}</div>
-          </main>
-          {/* <Footer /> */}
-        </div>
+          <div className="min-h-screen flex flex-col justify-between">
+            <ToastContainer style={{ marginTop: "100px" }} autoClose={3000} />
+            {/* <Header /> */}
+            <main className="w-full flex-1 flex flex-wrap px-4">
+              <div className="w-full">{children}</div>
+            </main>
+            {/* <Footer /> */}
+          </div>
+        </StoreProvider>
       </body>
     </html>
   );
