@@ -3,17 +3,17 @@
     min-height: 100vh;
     width: 100%;
     background-color: #f5f8fa;
-}
-
-.main {
+  }
+  
+  .main {
     display: flex;
     flex-direction: column;
     height: 100vh;
     width: 100%;
     overflow: hidden;
-}
-
-.header {
+  }
+  
+  .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -21,119 +21,148 @@
     background-color: #1a1a2e;
     color: white;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin-left: -16px;
-    margin-right: -16px;
-}
-
-.title {
+  }
+  
+  /* 3D Styling with scoped selectors */
+  .container {
+    --table-leg-color: #6D4C41;
+    --chair-primary: #8B4513;
+    --chair-secondary: #A0522D;
+  }
+  
+  .chairItem {
+    transition: transform 0.2s ease;
+  }
+  
+  .container {
+    --table-top-color: #d1bc8a;
+    --table-edge-color: #b39766;
+    --table-leg-color: #222;
+    --chair-primary: #3a3a3a;
+    --chair-secondary: #444;
+    --chair-legs: #222;
+  }
+  
+  .title {
     margin: 0;
     font-size: 1.5rem;
     font-weight: 600;
-}
-
-.workArea {
+  }
+  
+  .workArea {
     display: flex;
     flex: 1;
     overflow: hidden;
-}
-
-.sidebar {
+  }
+  
+  .sidebar {
     width: 250px;
     background-color: #fff;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
-    padding: 1rem;
+    padding: 1.5rem;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-}
-
-.floorPlan {
+  }
+  
+  .floorPlan {
     flex: 1;
-    background-color: #f0f2f5;
-    background-image:
-        linear-gradient(rgba(150, 150, 150, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(150, 150, 150, 0.1) 1px, transparent 1px);
+    background-color: #e6e0c8; /* Light beige like the reference image */
+    background-image: 
+      linear-gradient(rgba(150, 150, 150, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(150, 150, 150, 0.1) 1px, transparent 1px);
     background-size: 20px 20px;
     position: relative;
     overflow: auto;
     min-height: 500px;
-}
-
-.controlSection h2 {
+    perspective: 1000px;
+  }
+  
+  .controlSection {
+    background-color: #f8fafc;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .controlSection h2 {
     margin-top: 0;
     margin-bottom: 1rem;
     font-size: 1rem;
     color: #333;
     font-weight: 600;
-}
-
-.tableOptions {
+  }
+  
+  .tableOptions {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
-}
-
-.tableOption {
+  }
+  
+  .tableOption {
     padding: 0.75rem 0.5rem;
     text-align: center;
     border: none;
     border-radius: 6px;
     color: white;
     font-weight: 500;
-    cursor: grab;
+    cursor: pointer;
     transition: transform 0.2s ease, opacity 0.2s ease;
     font-size: 0.85rem;
     line-height: 1.2;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.tableOption:hover {
+  }
+  
+  .tableOption:hover {
     transform: translateY(-2px);
     opacity: 0.9;
-}
-
-.tableOption:active {
+  }
+  
+  .tableOption:active {
     transform: translateY(0);
-}
-
-.instructions {
+  }
+  
+  .instructions {
     margin: 0 0 1rem 0;
+    padding-left: 1.5rem;
+    font-size: 0.85rem;
     color: #4a5568;
-}
-
-.instructions li {
+  }
+  
+  .instructions li {
     margin-bottom: 0.5rem;
-}
-
-.button {
+  }
+  
+  .button {
     width: 100%;
-    padding: 10px 16px;
+    padding: 0.75rem;
     border: none;
     border-radius: 6px;
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.2s ease;
-}
-
-.clearButton {
+  }
+  
+  .clearButton {
     background-color: #e53e3e;
     color: white;
-}
-
-.clearButton:hover {
+  }
+  
+  .clearButton:hover {
     background-color: #c53030;
-}
-
-.tableSummary {
+  }
+  
+  .tableSummary {
+    font-size: 0.85rem;
     color: #4a5568;
-}
-
-.tableSummary p {
+  }
+  
+  .tableSummary p {
     margin: 0.5rem 0;
-}
-
-.emptyState {
+  }
+  
+  .emptyState {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -142,9 +171,9 @@
     font-size: 1.1rem;
     text-align: center;
     max-width: 80%;
-}
-
-.sidebarToggle {
+  }
+  
+  .sidebarToggle {
     background-color: transparent;
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: white;
@@ -153,89 +182,24 @@
     cursor: pointer;
     font-size: 0.85rem;
     transition: background-color 0.2s ease;
-}
-
-.sidebarToggle:hover {
+  }
+  
+  .sidebarToggle:hover {
     background-color: rgba(255, 255, 255, 0.1);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
     .workArea {
-        flex-direction: column;
+      flex-direction: column;
     }
-
+    
     .sidebar {
-        width: 100%;
-        max-height: 40vh;
+      width: 100%;
+      max-height: 40vh;
     }
-
+    
     .tableOptions {
-        grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, 1fr);
     }
-}
-
-.iconsParent {
-    position: absolute;
-    top: -10px;
-    right: -20px;
-}
-
-.iconsParent>* {
-    margin-bottom: 4px;
-}
-
-.tableCancel,
-.tableInfo {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background-color: #e53e3e;
-    color: white;
-    border: 2px solid white;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    z-index: 2
-}
-
-.tableInfo {
-    top: 14px;
-    background: white;
-}
-
-.tablePopUp {
-    position: absolute;
-    bottom: calc(100% + 16px);
-    left: 50%;
-    transform: translateX(-50%);
-    width: 300px;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.274);
-    background: white;
-    padding: 16px;
-    opacity: 0;
-    pointer-events: none;
-    transition: all 300ms linear;
-    z-index: 999;
-    text-align: center;
-}
-
-.tableStyle {
-    position: absolute;
-    cursor: move;
-    transition: box-shadow 0.2s ease;
-    z-index: 1;
-    user-select: none;
-}
-.tableStyle >img{
-    width: 100%;
-}
-
-div:has(.tableInfo:hover)~.tablePopUp {
-    opacity: 1;
-}
+  }
