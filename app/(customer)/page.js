@@ -1,7 +1,7 @@
 // pages/index.js
 "use client";
 import { useState, useRef } from "react";
-import styles from "./styles/Home.module.css";
+import styles from "../styles/Home.module.css";
 import TableSquare from "@/components/icons/TableSquare";
 import TableCircle from "@/components/icons/Table";
 import InfoIcon from "@/components/icons/Info";
