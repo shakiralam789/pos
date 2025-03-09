@@ -5,6 +5,7 @@ import styles from "./styles/Home.module.css";
 import TableSquare from "@/components/icons/TableSquare";
 import TableCircle from "@/components/icons/Table";
 import InfoIcon from "@/components/icons/Info";
+import PermanentFoodSmoke from "@/components/animation/smoke";
 
 export default function Home() {
   const [tables, setTables] = useState([]);
@@ -16,7 +17,7 @@ export default function Home() {
   const tableTemplates = {
     "square-8": {
       table: <TableSquare />,
-      width: 140,
+      width: 120,
       height: 80,
       seats: 8,
       shape: "square",
@@ -182,7 +183,8 @@ export default function Home() {
         style={tableStyle}
         onMouseDown={(e) => handleMouseDown(e, table)}
       >
-        
+        {/* <PermanentFoodSmoke /> */}
+
         {table.table}
         <div className={styles.iconsParent}>
           <button
@@ -210,7 +212,7 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <div className="-mx-4">
       <div className={styles.header}>
         <h1 className={styles.title}>Restaurant Table Manager</h1>
         <button
